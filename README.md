@@ -1,4 +1,5 @@
-# Django Books App - Using Restful Routes & Serializer (instead of HTML Templates)
+# Django Books App - Using Restful Routes & Serializer <br>
+(instead of HTML Templates)
 
 ## Setting up the Django Books Api app. (Day 1 portion of Notes)
 
