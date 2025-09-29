@@ -65,6 +65,7 @@ DATABASES = { # added this to use postgres as the database instead of the defaul
   
 - Stop the server ctrl+c
 - **Create superuser: python3 manage.py createsuperuser**
+- (For creating superuser part we are making a very basic username, email address, and pswd so that the class can troubleshoot easily; however, for real-life situations, this is where you make a more in-depth username and password)
 - **Now start a new app: django-admin startapp books**
 
 <hr>
