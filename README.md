@@ -28,6 +28,8 @@
   
 6. (he has 8) Now run this to start postgres brew services start postgresql@16
 - brew services start postgresql@16
+
+7. THEN START YOUR VSCODE: code .
   
 ## VSCode
 - Head to your project/settings.py file in the project folder
@@ -36,7 +38,7 @@
 DATABASES = { # added this to use postgres as the database instead of the default sqlite. do this before running the initial migrations or you will need to do it again
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'books-api',
+        'NAME': 'books-api', **(CHANGE THE NAME YOU'D LIKE TO USE FOR YOUR DATABASE: E.G. films-api)**
         'HOST': 'localhost',
         'PORT': 5432
     }
@@ -47,22 +49,23 @@ DATABASES = { # added this to use postgres as the database instead of the defaul
 ### Terminal
 - Make a database by running: createdb books-api
 - (This name must match the name of the db in the settings.py file)
-- Run the server: python manage.py runserver
+- Run the server: python3 manage.py runserver **Depending on which Python you have, use that. I'm using python3 so need to use that to run the server!**
 
 ### If:
 - If you get an error about importing Django, run this: pip install django psycopg2-binary
 
 ### If Not:
+**RUNNING MIGRATIONS BELOW HERE:**
 - Notice the first error that comes up and nudge students that they will need to run migrations.
 - Stop the server ctrl+c
-- Migrate the app python manage.py migrate
-- Run the server again python manage.py runserver
+- **Migrate the app: python3 manage.py migrate**
+- **Run the server again: python3 manage.py runserver**
 - No Errors! Boom.
 **(You should now be able to see the landing page if you navigate to http://localhost:8000 in the browser)**
   
 - Stop the server ctrl+c
-- Create superuser python manage.py createsuperuser
-- Now start a new app django-admin startapp books
+- **Create superuser: python3 manage.py createsuperuser**
+- **Now start a new app: django-admin startapp books**
 
 <hr>
   
@@ -87,9 +90,9 @@ class Book(models.Model):
 (Registering the model here so the admin site can pick it up)
 
 ### Terminal
-- Run python manage.py makemigrations
-- Then run python manage.py migrate
-- Restart the server python manage.py runserver
+- Run python3 manage.py makemigrations
+- Then run python3 manage.py migrate
+- Restart the server python3 manage.py runserver
 - Navigate to http://localhost:8000/admin and login to create some database entries
 - Add in a function to format the string to make it more readable: (if this doesn’t work, check that the function is indented into the class)
   
