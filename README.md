@@ -1,0 +1,172 @@
+#Django Books App - using restful routes and serializer
+
+## Setting up the Django Books Api app. (Day 1 portion of Notes)
+
+1. Create a directory for the application in your projects directory:
+   ```
+   mkdir ~/code/ga/projects/django-books-api
+   cd ~/code/ga/projects/django-books-api
+
+2. Install the package by running pipenv install django. After this you should have 2 files: Pipfile and Pipfile.lock. These are essentially the same as a package.json and a package-lock.json in a node/express app.
+- pipenv install django
+
+3. Enter the shell by running pipenv shell
+- pipenv shell
+
+4. To start a project run django-admin startproject project .
+- django-admin startproject project .
+- You should see that a folder called project has been created in the project directory, along with a manage.py file.
+
+5. Run pipenv install psycopg2-binary (this is a db-adapter which allows us to use postgresql)
+- pipenv install psycopg2-binary
+- (If you look in your Pipfile now, you should see that you have 2 dependencies: django and psycopg2-binary.)
+- pipenv install autopep8 --dev
+- (original code says -dev, but to make it work need to do --dev)
+  
+6. (he has 8) Now run this to start postgres brew services start postgresql@16
+- brew services start postgresql@16
+  
+## VSCode
+- Head to your project/settings.py file in the project folder
+- Replace the DATABASES object with the following:
+  
+DATABASES = { # added this to use postgres as the database instead of the default sqlite. do this before running the initial migrations or you will need to do it again
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'books-api',
+        'HOST': 'localhost',
+        'PORT': 5432
+    }
+}
+
+<hr>
+
+### Terminal
+- Make a database by running: createdb books-api
+- (This name must match the name of the db in the settings.py file)
+- Run the server: python manage.py runserver
+
+### If:
+- If you get an error about importing Django, run this: pip install django psycopg2-binary
+
+### If Not:
+- Notice the first error that comes up and nudge students that they will need to run migrations.
+- Stop the server ctrl+c
+- Migrate the app python manage.py migrate
+- Run the server again python manage.py runserver
+- No Errors! Boom.
+**(You should now be able to see the landing page if you navigate to http://localhost:8000 in the browser)**
+  
+- Stop the server ctrl+c
+- Create superuser python manage.py createsuperuser
+- Now start a new app django-admin startapp books
+
+<hr>
+  
+### VSCode
+- In settings.py in the project folder, add name of the app to the INSTALLED_APPS array
+- Move to models.py in the books folder
+- Create the model:
+  ```
+class Book(models.Model):
+  def __str__(self):
+    return f'{self.title} - {self.author}'
+  title = models.CharField(max_length=80, unique=True)
+  author = models.CharField(max_length=50)
+  genre = models.CharField(max_length=60)
+  year = models.FloatField()
+
+- (Fields are required by default so no need to specify)
+
+### Now:
+- Go to the apps admin.py and import your model: from .models import Book
+- Then register your site: admin.site.register(Book)
+(Registering the model here so the admin site can pick it up)
+
+### Terminal
+- Run python manage.py makemigrations
+- Then run python manage.py migrate
+- Restart the server python manage.py runserver
+- Navigate to http://localhost:8000/admin and login to create some database entries
+- Add in a function to format the string to make it more readable: (if this doesn’t work, check that the function is indented into the class)
+  
+## REST
+
+### Terminal
+- Stop the server ctrl+c
+- Install the django rest framework pipenv install djangorestframework
+  
+## VSCode
+Register this in our project/settings.py INSTALLED_APPS : ’rest_framework’ above our own app
+```
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'books'
+]
+
+- Inside the books folder create a new file called serializers.py
+
+- We need a serializer to convert python objects into JSON
+
+- In the serializers.py file add these imports:
+
+```
+from rest_framework import serializers
+from .models import Book
+- Build out the serializer. Here we define the model that the JSON will be using and specify which fields to look at:
+
+```
+class BookSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Book
+    fields = '__all__'
+
+- Move into views.py and delete the default imports
+- Add the following imports:
+
+```
+from rest_framework.views import APIView # this imports rest_frameworks APIView that we'll use to extend to our custom view
+from rest_framework.response import Response # Response gives us a way of sending a http response to the user making the request, passing back data and other information
+from rest_framework import status # status gives us a list of official/possible response codes
+
+from .models import Book
+from .serializers import BookSerializer
+
+- Build out views.py to return all data eg. ListView:
+
+```
+class BookListView(APIView):
+
+  def get(self, _request):
+    books = Book.objects.all()
+    serialized_books = BookSerializer(books, many=True)
+    return Response(serialized_books.data, status=status.HTTP_200_OK)
+
+- Make a new file called urls.py . Add the imports for the views and the path for the index/list view:
+
+```
+from django.urls import path
+from .views import BookListView
+```
+urlpatterns = [
+  path('', BookListView.as_view()),
+]
+
+- inside project/urls.py add to urlpatterns :
+- remember to update import to add include as well as path
+
+```
+from django.contrib import admin
+from django.urls import path, include
+
+```
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('books/', include('books.urls')),
+]
