@@ -1,5 +1,5 @@
 # Django Books App - Using Restful Routes & Serializer <br>
-**(Using restful routes & serializer (React) instead of HTML Templates since it is used more widely currently in the world per Tristan)**
+**(Using restful routes & serializer (React) instead of HTML Templates since it is used more widely currently in the world per Tristan Hall.)**
 
 <hr>
 
