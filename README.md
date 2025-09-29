@@ -32,7 +32,7 @@
 ## VSCode
 - Head to your project/settings.py file in the project folder
 - Replace the DATABASES object with the following:
-- ```
+
 DATABASES = { # added this to use postgres as the database instead of the default sqlite. do this before running the initial migrations or you will need to do it again
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -70,7 +70,7 @@ DATABASES = { # added this to use postgres as the database instead of the defaul
 - In settings.py in the project folder, add name of the app to the INSTALLED_APPS array
 - Move to models.py in the books folder
 - Create the model:
-- ```
+
 class Book(models.Model):
   def __str__(self):
     return f'{self.title} - {self.author}'
