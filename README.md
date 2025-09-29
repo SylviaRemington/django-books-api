@@ -125,6 +125,7 @@ INSTALLED_APPS = [
 ```
 from rest_framework import serializers
 from .models import Book
+
 - Build out the serializer. Here we define the model that the JSON will be using and specify which fields to look at:
 
 ```
