@@ -9,6 +9,7 @@
    ```
    mkdir ~/code/ga/projects/django-books-api
    cd ~/code/ga/projects/django-books-api
+   ```
 
 2. Install the package by running pipenv install django. After this you should have 2 files: Pipfile and Pipfile.lock. These are essentially the same as a package.json and a package-lock.json in a node/express app.
 - pipenv install django
@@ -35,6 +36,7 @@
 - Head to your project/settings.py file in the project folder
 - Replace the DATABASES object with the following:
 
+```
 DATABASES = { # added this to use postgres as the database instead of the default sqlite. do this before running the initial migrations or you will need to do it again
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -43,6 +45,7 @@ DATABASES = { # added this to use postgres as the database instead of the defaul
         'PORT': 5432
     }
 }
+```
 
 <hr>
 
@@ -74,7 +77,7 @@ DATABASES = { # added this to use postgres as the database instead of the defaul
 - In settings.py in the project folder, add name of the app to the INSTALLED_APPS array
 - Move to models.py in the books folder
 - Create the model:
-
+```
 class Book(models.Model):
   def __str__(self):
     return f'{self.title} - {self.author}'
@@ -82,7 +85,7 @@ class Book(models.Model):
   author = models.CharField(max_length=50)
   genre = models.CharField(max_length=60)
   year = models.FloatField()
-
+```
 - (Fields are required by default so no need to specify)
 
 ### Now:
@@ -117,6 +120,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'books'
 ]
+```
 
 - Inside the books folder create a new file called serializers.py
 
@@ -127,6 +131,7 @@ INSTALLED_APPS = [
 ```
 from rest_framework import serializers
 from .models import Book
+```
 
 - Build out the serializer. Here we define the model that the JSON will be using and specify which fields to look at:
 
@@ -135,6 +140,7 @@ class BookSerializer(serializers.ModelSerializer):
   class Meta:
     model = Book
     fields = '__all__'
+```
 
 - Move into views.py and delete the default imports
 - Add the following imports:
@@ -143,32 +149,38 @@ class BookSerializer(serializers.ModelSerializer):
 from rest_framework.views import APIView # this imports rest_frameworks APIView that we'll use to extend to our custom view
 from rest_framework.response import Response # Response gives us a way of sending a http response to the user making the request, passing back data and other information
 from rest_framework import status # status gives us a list of official/possible response codes
+```
 
 ```
 from .models import Book
 from .serializers import BookSerializer
+```
 
 - Build out views.py to return all data eg. ListView:
 
 ```
 class BookListView(APIView):
+```
 
 ```
   def get(self, _request):
     books = Book.objects.all()
     serialized_books = BookSerializer(books, many=True)
     return Response(serialized_books.data, status=status.HTTP_200_OK)
+```
 
 - Make a new file called urls.py . Add the imports for the views and the path for the index/list view:
 
 ```
 from django.urls import path
 from .views import BookListView
+```
 
 ```
 urlpatterns = [
   path('', BookListView.as_view()),
 ]
+```
 
 - inside project/urls.py add to urlpatterns :
 - remember to update import to add include as well as path
@@ -176,9 +188,11 @@ urlpatterns = [
 ```
 from django.contrib import admin
 from django.urls import path, include
+```
 
 ```
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('books/', include('books.urls')),
 ]
+```
