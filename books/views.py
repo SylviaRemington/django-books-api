@@ -2,6 +2,8 @@
 from rest_framework.views import APIView # this imports rest_frameworks APIView that we'll use to extend to our custom view
 from rest_framework.response import Response # Response gives us a way of sending a http response to the user making the request, passing back data and other information
 from rest_framework import status # status gives us a list of official/possible response codes
+# This is part of the rest framework - This is the import for the NotFound exception
+from rest_framework.exceptions import NotFound
 
 from .models import Book
 from .serializers import BookSerializer
@@ -42,7 +44,18 @@ class BookListView(APIView):
             return Response(e.__dict__ if e.__dict__ else str(e), status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         
 
+# Creating the book detail view
+class BookDetailView(APIView):
+    # def get_ -- ! This is where I stopped coding along
+    def get(self, _request, pk):
+        try:
+            book = Book.objects.get(pk=pk)
+            serialized_book = BookSerializer(book)
+            return Response(serialized_book.data, status=status.HTTP_200_OK)
+        except Book.DoesNotExist:
+            raise NotFound(detail="🆘 Can't find that book!")
         
+    
     
 
 
