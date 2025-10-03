@@ -94,11 +94,12 @@ class Book(models.Model):
 (Registering the model here so the admin site can pick it up)
 
 ### Terminal
-- Run python3 manage.py makemigrations
-- Then run python3 manage.py migrate
-- Restart the server python3 manage.py runserver
+- Run: python3 manage.py makemigrations
+- Then run: python3 manage.py migrate
+- Restart the server: python3 manage.py runserver
 - Navigate to http://localhost:8000/admin and login to create some database entries
 - Add in a function to format the string to make it more readable: (if this doesn’t work, check that the function is indented into the class)
+  **Question for Tristan or Luke: For the part above, what does this part mean and where are we doing this?**
   
 ## REST
 
