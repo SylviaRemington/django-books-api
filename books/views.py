@@ -1,4 +1,5 @@
 # so can import
+#  Using rest framework - converts django from wanting to respond with its templating engine INTO wanting to send back JSON
 from rest_framework.views import APIView # this imports rest_frameworks APIView that we'll use to extend to our custom view
 from rest_framework.response import Response # Response gives us a way of sending a http response to the user making the request, passing back data and other information
 from rest_framework import status # status gives us a list of official/possible response codes
@@ -8,17 +9,22 @@ from rest_framework.exceptions import NotFound
 from .models import Book
 from .serializers import BookSerializer
 
-
+# VIEWS.PY SECTION IS FOR THE FUNCTIONS
 # Create your views here.
+# Extends our base class of API view
 class BookListView(APIView):
 
   def get(self, _request):
     # Can use def get or def post or def put or def delete
-    # gets all the books
+    # Defining all the methods that this view can respond to.
+    # This gets all the books. Gets everything from the db through the model.
     books = Book.objects.all()
-    # passes through the serializer - I'm expecting a list of books
+    # passes through the serializer - "I'm expecting a list of books.""
+    # Serializing it - so doing the transition from Postgres to JSON or vice versa
+    # When we want to pass a lot of them, we use the many=True argument.
     serialized_books = BookSerializer(books, many=True)
-    # return a response
+    # return a response - with the serialized response data & the appropriate HTTP code.
+    # This gives us the ability to now test it in Postman.
     return Response(serialized_books.data, status=status.HTTP_200_OK)
   
   # Request is in json

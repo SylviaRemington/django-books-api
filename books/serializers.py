@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from .models import Book
 
-
+# Serializer takes the data and swaps it from Postgres to JSON, and JSON to Postgres, and handles that transaction.
+# Handles that transaction between the different data forms
 class BookSerializer(serializers.ModelSerializer):
   class Meta:
     model = Book

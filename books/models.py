@@ -1,9 +1,8 @@
 from django.db import models
 
-# Create your models here.
+# MODEL CREATION
 class Book(models.Model):
-#   important
-# need def string and return to actually see the data
+# important - need def string and return to actually see the data
 # This is string data that helps with working with your admin area on localhost:8000/admin
   def __str__(self):
     return f'{self.title} - a book by {self.author}'
