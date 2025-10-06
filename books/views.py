@@ -8,7 +8,7 @@ from rest_framework.exceptions import NotFound
 
 
 from .models import Book
-from .serializers import BookSerializer
+from .serializers import BookSerializer, PopulatedBookSerializer
 
 # VIEWS.PY SECTION IS FOR THE FUNCTIONS
 # Create your views here.
@@ -92,7 +92,7 @@ class BookDetailView(APIView):
         # Querying using a primary key is always going to return a single result.
         # This will never be a list, so no need to add many+true on the serializer.
         # Now we want a serialized book, same as before when using the get request. (get book, serialize them, and then return them.)
-        serialized_book = BookSerializer(book)
+        serialized_book = PopulatedBookSerializer(book)
         # Return the response.
         return Response(serialized_book.data, status=status.HTTP_200_OK)
         
