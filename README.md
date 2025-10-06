@@ -94,11 +94,8 @@ if not:
 - Run the server again `python manage.py runserver`
 - No Errors! Boom.
 
-  > You should now be able to see the landing page if you navigate to http://localhost:8000 in the browser
+  > You should now be able to see the landing page if you navigate to http://localhost:8000 in the browser.
 
-<div>
-    <img src="../images/django-landing-page.png" width="500px" />
-</div>
 
 - Stop the server `ctrl+c`
 - Create superuser `python manage.py createsuperuser`
@@ -106,11 +103,7 @@ if not:
 
 ### VSCode
 
-- In `settings.py` in the `project` folder, add name of the app to the `INSTALLED_APPS` array
-<div>
-    <img src="../images/project-installed-apps.png" width="500px" />
-</div>
-
+- In `settings.py` in the `project` folder, add name of the app to the `INSTALLED_APPS` array.
 - Move to `models.py` in the `books` folder
 - Create the model:
 
