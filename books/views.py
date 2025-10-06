@@ -6,6 +6,7 @@ from rest_framework import status # status gives us a list of official/possible 
 # This is part of the rest framework - This is the import for the NotFound exception.
 from rest_framework.exceptions import NotFound
 
+
 from .models import Book
 from .serializers import BookSerializer
 
@@ -23,7 +24,7 @@ class BookListView(APIView):
     # This gets all the books. Gets everything from the db through the model.
     books = Book.objects.all()
     # passes through the serializer - "I'm expecting a list of books.""
-    # Serializing it - so doing the transition from Postgres to JSON or vice versa
+    # Serializing it - so doing the transition from Postgres to JSON or vice versa.
     # When we want to pass a lot of them, we use the many=True argument.
     serialized_books = BookSerializer(books, many=True)
     # return a response - with the serialized response data & the appropriate HTTP code.
@@ -37,18 +38,18 @@ class BookListView(APIView):
   # Defining what happens when a post method is sent to that request, sent to that endpoint.
   def post(self, request):
         # We run this so that it is something that can be stored in our database.
-        # So w run it through the book serializer - running the data from parenthesis.
+        # So we run it through the book serializer - running the data from parenthesis.
         # The data is the request.data.
         # It's passing the request body, but through the serializer.
-        # The serializer returns the book_to_add. But there are a few diff features on it that checks if the data is valid against the model.
+        # The serializer returns the book to add. But there are a few diff features on it that checks if the data is valid against the model.
         book_to_add = BookSerializer(data=request.data)
         try:
-            # "is valid" is coming from the serializer //And the serializer is coming from rest framework.//So checking it's valid against the model.
-            # Checking data through the model to see if it's valid
+            # "is valid" is coming from the serializer. And the serializer is coming from rest framework. So checking it's valid against the model.
+            # Checking data through the model to see if it's valid.
             book_to_add.is_valid()
             # If it is valid, then saves it.
             book_to_add.save()
-            # 201 is created and see that on Postman
+            # 201 is created and see that on Postman.
             # Then we return the data, and then HTTP 201 is created which you see in POSTMAN in the output Body part at bottom.
             return Response(book_to_add.data, status=status.HTTP_201_CREATED)
         # exceptions are like a catch in js, but if we specify an exception like we do below then the exception thrown has to match to fall into it
@@ -79,7 +80,7 @@ class BookDetailView(APIView):
         # Looking at exceptions - in case there's a book that doesn't exist. Like a catch.
         except Book.DoesNotExist:
             # NotFound is a specific error, a 404 error
-            # Need to import it and it comes from the exceptions in the the Djano rest_framework.
+            # Need to import it and it comes from the exceptions in the the Djano rest framework.
             raise NotFound(detail="🆘 Can't find that book!")
         
         # Now we want this function to respond to a particular url.

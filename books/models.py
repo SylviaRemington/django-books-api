@@ -2,8 +2,8 @@ from django.db import models
 
 # MODEL CREATION
 class Book(models.Model):
-# important - need def string and return to actually see the data
-# This is string data that helps with working with your admin area on localhost:8000/admin
+# important - need def string (line 8) and return to actually see the data in the admin page.
+# This is string data that helps with working with your admin area on localhost:8000/admin.
 # Lines 8 and 9 calls string model and helps show on admin page what that is.
   def __str__(self):
     return f'{self.title} - a book by {self.author}'
@@ -11,3 +11,4 @@ class Book(models.Model):
   author = models.CharField(max_length=50)
   genre = models.CharField(max_length=60)
   year = models.FloatField()
+
