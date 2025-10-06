@@ -12,5 +12,13 @@ class Comment(models.Model):
         "books.Book",
         related_name = "comments",
         on_delete=models.CASCADE #If the book is deleted, all the comments are deleted. But you can delete a comment separately.
-    )
+    ),
 
+    
+
+    owner = models.ForeignKey(
+        "jwt_auth.User",
+        related_name="comments",
+        on_delete=models.CASCADE,
+        editable=False,
+    )
