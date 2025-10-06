@@ -72,9 +72,13 @@ class BookDetailView(APIView):
     # This will be used by all of the routes
     def get_book(self, pk):
         try:
+            # go to the database and get it
             return Book.objects.get(pk=pk)
+        # And if can't find it, show not found. What returns is the unserialized book.
         except Book.DoesNotExist:
             raise NotFound(detail="🆘 Can't find that book!")
+
+
 
     # pk stands for primary key, which is the ID.
     def get(self, _request, pk):
