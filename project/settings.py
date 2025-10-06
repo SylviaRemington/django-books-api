@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'jwt_auth',
 ]
 
+AUTH_USER_MODEL = 'jwt_auth.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
