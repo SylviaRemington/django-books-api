@@ -68,6 +68,10 @@ class BookListView(APIView):
 # CREATING SHOWPAGE
 # Creating the book detail view.
 class BookDetailView(APIView):
+    #Creating a basic function that we can use for just getting a book & then reuse it for put and delete requests to make code nice and clean.
+    def get_book(self, pk):
+
+
     # pk stands for primary key, which is the ID.
     def get(self, _request, pk):
         try:
