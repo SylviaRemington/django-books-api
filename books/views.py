@@ -15,6 +15,8 @@ from .serializers import BookSerializer
 class BookListView(APIView):
   
   # GET REQUEST
+  # All of our requests need to take self, and talking about this view, this request view / the request object(?).
+  # The request is in JSON.
   def get(self, _request):
     # Can use def get or def post or def put or def delete
     # Defining all the methods that this view can respond to.
@@ -28,20 +30,26 @@ class BookListView(APIView):
     # This gives us the ability to now test it in Postman.
     return Response(serialized_books.data, status=status.HTTP_200_OK)
   
-    #------------------------------------------------------------------
+#------------------------------------------------------------------
 
   # POST REQUEST
-  # Request is in json.
+  # Request is in json. That's what the request body is being sent as.
+  # Defining what happens when a post method is sent to that request, sent to that endpoint.
   def post(self, request):
-        # run it through the book serializer - running the data from parenthesis
+        # We run this so that it is something that can be stored in our database.
+        # So w run it through the book serializer - running the data from parenthesis.
+        # The data is the request.data.
+        # It's passing the request body, but through the serializer.
+        # The serializer returns the book_to_add. But there are a few diff features on it that checks if the data is valid against the model.
         book_to_add = BookSerializer(data=request.data)
         try:
-            # is valid is from our serializer
-            # checked data through the model
+            # "is valid" is coming from the serializer //And the serializer is coming from rest framework.//So checking it's valid against the model.
+            # Checking data through the model to see if it's valid
             book_to_add.is_valid()
-            # if valid then save
+            # If it is valid, then saves it.
             book_to_add.save()
             # 201 is created and see that on Postman
+            # Then we return the data, and then HTTP 201 is created which you see in POSTMAN in the output Body part at bottom.
             return Response(book_to_add.data, status=status.HTTP_201_CREATED)
         # exceptions are like a catch in js, but if we specify an exception like we do below then the exception thrown has to match to fall into it
         # For example the below is the exception thrown when we miss a required field
@@ -53,6 +61,7 @@ class BookListView(APIView):
             # so we'll check it's a dict first, and if it's empty (falsey) then we'll use str() to convert to a string
             return Response(e.__dict__ if e.__dict__ else str(e), status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         
+#------------------------------------------------------------------
 
 # Creating the book detail view
 class BookDetailView(APIView):
