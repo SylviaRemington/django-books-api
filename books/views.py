@@ -3,7 +3,7 @@
 from rest_framework.views import APIView # this imports rest_frameworks APIView that we'll use to extend to our custom view
 from rest_framework.response import Response # Response gives us a way of sending a http response to the user making the request, passing back data and other information
 from rest_framework import status # status gives us a list of official/possible response codes
-# This is part of the rest framework - This is the import for the NotFound exception
+# This is part of the rest framework - This is the import for the NotFound exception.
 from rest_framework.exceptions import NotFound
 
 from .models import Book
@@ -61,7 +61,7 @@ class BookListView(APIView):
             # so we'll check it's a dict first, and if it's empty (falsey) then we'll use str() to convert to a string
             return Response(e.__dict__ if e.__dict__ else str(e), status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         
-        
+
 #------------------------------------------------------------------
 
 # CREATING SHOWPAGE
@@ -76,9 +76,13 @@ class BookDetailView(APIView):
             serialized_book = BookSerializer(book)
             # Return the response.
             return Response(serialized_book.data, status=status.HTTP_200_OK)
-        # Looking at exceptions - in case there's a book that doesn't exist.
+        # Looking at exceptions - in case there's a book that doesn't exist. Like a catch.
         except Book.DoesNotExist:
+            # NotFound is a specific error, a 404 error
+            # Need to import it and it comes from the exceptions in the the Djano rest_framework.
             raise NotFound(detail="🆘 Can't find that book!")
+        
+        # Now we want this function to respond to a particular url.
         
 #------------------------------------------------------------------
     
