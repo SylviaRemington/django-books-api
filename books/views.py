@@ -65,12 +65,16 @@ class BookListView(APIView):
 
 #------------------------------------------------------------------
 
-# CREATING SHOWPAGE
+# CREATING SHOWPAGE / INDIVIDUAL BOOK PAGE
 # Creating the book detail view.
 class BookDetailView(APIView):
     #Creating a basic function that we can use for just getting a book & then reuse it for put and delete requests to make code nice and clean.
+    # This will be used by all of the routes
     def get_book(self, pk):
-
+        try:
+            return Book.objects.get(pk=pk)
+        except Book.DoesNotExist:
+            raise NotFound(detail="🆘 Can't find that book!")
 
     # pk stands for primary key, which is the ID.
     def get(self, _request, pk):
