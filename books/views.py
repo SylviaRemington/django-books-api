@@ -6,6 +6,9 @@ from rest_framework import status # status gives us a list of official/possible 
 # This is part of the rest framework - This is the import for the NotFound exception.
 from rest_framework.exceptions import NotFound
 
+# import the IsAuthenticaticatedOnReadOnly - can do things on GET requests
+from rest_framework.permissions import IsAuthenticatedOrReadOnly # IsAuthenticatedOrReadOnly specifies that a view is secure on all methods except get requests
+
 
 from .models import Book
 from .serializers import BookSerializer, PopulatedBookSerializer
@@ -14,6 +17,8 @@ from .serializers import BookSerializer, PopulatedBookSerializer
 # Create your views here.
 # Extends our base class of API view
 class BookListView(APIView):
+  permission_classes = (IsAuthenticatedOrReadOnly)
+#   Get is READONLY --NEED AUTHENTICATION IN ORDER TO CREATE
   
   # GET REQUEST -- Ability to have a read all and getting all of the data.
   # All of our requests need to take self, and talking about this view, this request view / the request object(?).

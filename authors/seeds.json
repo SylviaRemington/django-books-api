@@ -1,0 +1,16 @@
+[
+{
+  "model": "authors.author",
+  "pk": 1,
+  "fields": {
+    "name": "J.R. Tolkien"
+  }
+},
+{
+  "model": "authors.author",
+  "pk": 2,
+  "fields": {
+    "name": "Sylvita la del barrio"
+  }
+}
+]

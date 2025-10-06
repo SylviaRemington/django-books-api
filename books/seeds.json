@@ -1,0 +1,22 @@
+[
+{
+  "model": "books.book",
+  "pk": 1,
+  "fields": {
+    "title": "The Hobbit",
+    "author": 1,
+    "genre": "Small hairy people",
+    "year": 2003.0
+  }
+},
+{
+  "model": "books.book",
+  "pk": 2,
+  "fields": {
+    "title": "Random Addtl Book",
+    "author": 1,
+    "genre": "Small hairy people",
+    "year": 1972.0
+  }
+}
+]
