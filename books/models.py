@@ -8,7 +8,7 @@ class Book(models.Model):
   def __str__(self):
     return f'{self.title} - a book by {self.author}'
   title = models.CharField(max_length=80, unique=True)
-  author = models.CharField(max_length=50)
+  author = models.CharField(max_length=50) #these are free text fields currently about to change to a foreign key
   genre = models.CharField(max_length=60)
   year = models.FloatField()
 
