@@ -11,5 +11,6 @@ class Comment(models.Model):
     book = models.ForeignKey(
         "books.Book",
         related_name = "comments",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE #If the book is deleted, all the comments are deleted. But you can delete a comment separately.
     )
+
