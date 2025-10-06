@@ -7,8 +7,15 @@ class Book(models.Model):
 # Lines 8 and 9 calls string model and helps show on admin page what that is.
   def __str__(self):
     return f'{self.title} - a book by {self.author}'
+  
+  # models.CharField is the data type and means "string"
   title = models.CharField(max_length=80, unique=True)
-  author = models.CharField(max_length=50) #these are free text fields currently about to change to a foreign key
+  author = models.ForeignKey(
+    # This line of authors.Author is the model and where it is coming from.
+    "authors.Author", #This is the path to the Author model.
+    related_name = "books", # This is the name of the reverse relation from Author to Book.
+    on_delete = models.CASCADE # If the author is deleted, all their books are deleted.
+  )
   genre = models.CharField(max_length=60)
   year = models.FloatField()
 
