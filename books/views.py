@@ -61,9 +61,11 @@ class BookListView(APIView):
             # so we'll check it's a dict first, and if it's empty (falsey) then we'll use str() to convert to a string
             return Response(e.__dict__ if e.__dict__ else str(e), status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         
+        
 #------------------------------------------------------------------
 
-# Creating the book detail view
+# CREATING SHOWPAGE
+# Creating the book detail view.
 class BookDetailView(APIView):
     # def get_ -- ! This is where I stopped coding along
     def get(self, _request, pk):
@@ -74,7 +76,7 @@ class BookDetailView(APIView):
         except Book.DoesNotExist:
             raise NotFound(detail="🆘 Can't find that book!")
         
-    
+#------------------------------------------------------------------
     
 
 
