@@ -14,7 +14,7 @@ from .serializers import BookSerializer
 # Extends our base class of API view
 class BookListView(APIView):
   
-  # GET REQUEST
+  # GET REQUEST -- Ability to have a read all and getting all of the data.
   # All of our requests need to take self, and talking about this view, this request view / the request object(?).
   # The request is in JSON.
   def get(self, _request):
@@ -32,7 +32,7 @@ class BookListView(APIView):
   
 #------------------------------------------------------------------
 
-  # POST REQUEST
+  # POST REQUEST -- Ability to create data here.
   # Request is in json. That's what the request body is being sent as.
   # Defining what happens when a post method is sent to that request, sent to that endpoint.
   def post(self, request):
