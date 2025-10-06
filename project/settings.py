@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'books',
     'authors',
     'comments',
+    'jwt_auth',
 ]
 
 MIDDLEWARE = [
