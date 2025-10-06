@@ -68,6 +68,7 @@ class BookListView(APIView):
 # CREATING SHOWPAGE / INDIVIDUAL BOOK PAGE
 # Creating the book detail view.
 class BookDetailView(APIView):
+
     #Creating a basic function that we can use for just getting a book & then reuse it for put and delete requests to make code nice and clean.
     # This will be used by all of the routes
     def get_book(self, pk):
@@ -77,14 +78,16 @@ class BookDetailView(APIView):
         # And if can't find it, show not found. What returns is the unserialized book.
         except Book.DoesNotExist:
             raise NotFound(detail="🆘 Can't find that book!")
-
-
+        
 
     # pk stands for primary key, which is the ID.
     def get(self, _request, pk):
         try:
             # book is the model and we pass in the primary key as the argument.
-            book = Book.objects.get(pk=pk)
+            # book = Book.objects.get(pk=pk)
+            book = self.get_book(pk=pk) #instead of previous function, using key word arguments here.
+            # Querying using a primary key is always going to return a single result.
+            # This will never be a list, so no need to add many+true on the serializer.
             # Now we want a serialized book, same as before when using the get request. (get book, serialize them, and then return them.)
             serialized_book = BookSerializer(book)
             # Return the response.
