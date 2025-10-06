@@ -13,7 +13,8 @@ from .serializers import BookSerializer
 # Create your views here.
 # Extends our base class of API view
 class BookListView(APIView):
-
+  
+  # GET REQUEST
   def get(self, _request):
     # Can use def get or def post or def put or def delete
     # Defining all the methods that this view can respond to.
@@ -27,7 +28,10 @@ class BookListView(APIView):
     # This gives us the ability to now test it in Postman.
     return Response(serialized_books.data, status=status.HTTP_200_OK)
   
-  # Request is in json
+    #------------------------------------------------------------------
+
+  # POST REQUEST
+  # Request is in json.
   def post(self, request):
         # run it through the book serializer - running the data from parenthesis
         book_to_add = BookSerializer(data=request.data)
