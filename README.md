@@ -24,23 +24,12 @@ cd ~/code/ga/projects/django-books-api
 pipenv install django
 ```
 
-The terminal output will look something like this:
-
-<div>
-    <img src="../images/terminal-pipenv-install-django.png" width="500px" />
-</div>
-
 3. Enter the shell by running `pipenv shell`
 
 ```bash
 pipenv shell
 ```
 
-The output will look a bit like this:
-
-<div>
-    <img src="../images/terminal-pipenv-shell.png" width="500px" />
-</div>
 
 4. To start a project run `django-admin startproject project .`
 
@@ -58,9 +47,6 @@ pipenv install psycopg2-binary
 
 If you look in your Pipfile now, you should see that you have 2 dependencies: django and psycopg2-binary.
 
-<div>
-    <img src="../images/terminal-pipenv-shell.png" width="500px" />
-</div>
 
 ```bash
 pipenv install autopep8 -dev
