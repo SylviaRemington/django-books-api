@@ -67,12 +67,16 @@ class BookListView(APIView):
 # CREATING SHOWPAGE
 # Creating the book detail view.
 class BookDetailView(APIView):
-    # def get_ -- ! This is where I stopped coding along
+    # pk stands for primary key, which is the ID
     def get(self, _request, pk):
         try:
+            # book is the model and we pass in the primary key as the argument.
             book = Book.objects.get(pk=pk)
+            # Now we want a serialized book, same as before when using the get request. (get book, serialize them, and then return them.)
             serialized_book = BookSerializer(book)
+            # Return the response.
             return Response(serialized_book.data, status=status.HTTP_200_OK)
+        # Looking at exceptions - in case there's a book that doesn't exist.
         except Book.DoesNotExist:
             raise NotFound(detail="🆘 Can't find that book!")
         
