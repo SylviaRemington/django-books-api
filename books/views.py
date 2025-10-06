@@ -68,7 +68,7 @@ class BookListView(APIView):
 # CREATING SHOWPAGE
 # Creating the book detail view.
 class BookDetailView(APIView):
-    # pk stands for primary key, which is the ID
+    # pk stands for primary key, which is the ID.
     def get(self, _request, pk):
         try:
             # book is the model and we pass in the primary key as the argument.
@@ -79,7 +79,7 @@ class BookDetailView(APIView):
             return Response(serialized_book.data, status=status.HTTP_200_OK)
         # Looking at exceptions - in case there's a book that doesn't exist. Like a catch.
         except Book.DoesNotExist:
-            # NotFound is a specific error, a 404 error
+            # NotFound is a specific error, a 404 error.
             # Need to import it and it comes from the exceptions in the the Djano rest framework.
             raise NotFound(detail="🆘 Can't find that book!")
         

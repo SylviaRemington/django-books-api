@@ -9,6 +9,6 @@ urlpatterns = [
   # This below is Django's way of doing :id, and uses '<int:pk>' instead.
   # It expects it to have an integer which is called the pk.
   # Don't need to also add this path to the project urls.py because this falls under the books urls.
-  path('<int:pk>', BookDetailView.as_view()),
+  path('<int:pk>/', BookDetailView.as_view()),
 ]
 
