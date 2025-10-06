@@ -14,4 +14,5 @@ class BookSerializer(serializers.ModelSerializer):
 # This builds on the book serializer.
 class PopulatedBookSerializer(BookSerializer):
     author = AuthorSerializer()
+    # Because there will be many comments, many=True.
     comments = CommentSerializer(many=True)
