@@ -59,6 +59,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'project.urls'
 
 REST_FRAMEWORK = {
+    # what it's using to render
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
@@ -66,6 +67,8 @@ REST_FRAMEWORK = {
 
     # for auth, rendering everything in json, and should use this file
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        # The file is jwt_auth app, .authentication is the file, JWTAuthentication is the class in the file of authentication.py
+        # Saying, "Django, we're using rest framework, rendering everything in JSON, and for all the authentication, you should use this file." (so that's how that file gets consumed)
         'jwt_auth.authentication.JWTAuthentication'
         ],
 }
