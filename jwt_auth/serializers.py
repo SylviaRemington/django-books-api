@@ -1,15 +1,21 @@
 from rest_framework import serializers
+# the password validation function runs on top of the model when creating superuser
 from django.contrib.auth import get_user_model, password_validation # function runs when creating superuser
-from django.contrib.auth.hashers import make_password # hashes password for us
+from django.contrib.auth.hashers import make_password # hashes the password for us
 from django.core.exceptions import ValidationError
 
+# Start by getting user model
 User = get_user_model()
 
+# More full one than regular serializers because adding validation on the user.
 class UserSerializer(serializers.ModelSerializer): # never converted to json and returned in response
-    # Can't see password - write only not read - can't see data
+    # user has a password...
+    # Can't see password - write only not read - can't see data. Prevent it from being shown.
     password = serializers.CharField(write_only=True) # write_only=True ensures never sent back in JSON
     password_confirmation = serializers.CharField(write_only=True)
 
+    # WRITING VALIDATOR HERE BELOW:
+    
     # validate function is going to:
     # 1. check our passwords match
     # 2. hash our passwords

@@ -18,6 +18,7 @@ from .serializers import BookSerializer, PopulatedBookSerializer
 # Create your views here.
 # Extends our base class of API view
 class BookListView(APIView):
+  # If you want this to be only for authenticated uses... then do IsAuthenticated instead.
   permission_classes = (IsAuthenticatedOrReadOnly)
 #   Get is READONLY --NEED AUTHENTICATION IN ORDER TO CREATE
   
