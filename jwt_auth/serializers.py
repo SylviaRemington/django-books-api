@@ -15,19 +15,20 @@ class UserSerializer(serializers.ModelSerializer): # never converted to json and
     password_confirmation = serializers.CharField(write_only=True)
 
     # WRITING VALIDATOR HERE BELOW:
-    
+
     # validate function is going to:
     # 1. check our passwords match
     # 2. hash our passwords
     # 3. add them back to the database
     def validate(self, data): # data comes from the request body
         print('DATA',data)
+
         # remove fields from request body and save to vars
         password = data.pop('password')
         password_confirmation = data.pop('password_confirmation')
 
         # check if they match - #1
-        # if password is not the same as password confirmation, raise validation error
+        # if password is not the same as password confirmation, raise a validation error
         if password != password_confirmation:
             raise ValidationError({'password_confirmation': 'do not match'})
 
@@ -35,12 +36,15 @@ class UserSerializer(serializers.ModelSerializer): # never converted to json and
         try:
             password_validation.validate_password(password=password)
         except ValidationError as err:
-            print('VALIDATION ERROR:', err.message)
-            raise ValidationError({ 'password': err.message })
+            print('VALIDATION ERROR:': err.message)
+            raise ValidationError({'password: ': err.message })
 
         # add it to the database & hash the password, reassigning value on dict - #3
         # updating the data to hash it
 
+        # updating the data object to hash it
+        # If password works, we add to to the database and hash it.
+        # hash the pswd if it is valid
         data['password'] = make_password(password)
 
         print('DATA ->', data)
