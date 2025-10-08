@@ -19,7 +19,7 @@ from .serializers import BookSerializer, PopulatedBookSerializer
 # Extends our base class of API view
 class BookListView(APIView):
   # If you want this to be only for authenticated uses... then do IsAuthenticated instead.
-  permission_classes = (IsAuthenticatedOrReadOnly)
+  # permission_classes = (IsAuthenticatedOrReadOnly) - COMMENTING THIS OUT FOR NOW SO THAT POSTMAN WILL WORK
 #   Get is READONLY --NEED AUTHENTICATION IN ORDER TO CREATE
   
   # GET REQUEST -- Ability to have a read all and getting all of the data.
