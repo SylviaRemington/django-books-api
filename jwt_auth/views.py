@@ -29,6 +29,7 @@ class LoginView(APIView):
         email = request.data.get('email')
         password = request.data.get('password')
         try:
+            # querying that database and finding the user that has that email.
             user_to_login = User.objects.get(email=email) # get user with email
         # check if user exists
         except User.DoesNotExist:
@@ -36,6 +37,7 @@ class LoginView(APIView):
         if not user_to_login.check_password(password):
             raise PermissionDenied(detail='Invalid Credentials')
 
+        # Then we start using the tokens here...
         # timedelta can be used to calculate the difference between dates - passing 7 days gives you 7 days represented as a date that we can add to datetime.now() to get the date 7 days from now
         # date time 7 days from when log in
         dt = datetime.now() + timedelta(days=7) # validity of token
