@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly # IsAuthenticat
 
 
 from .models import Comment
-from .serializers import CommentSerializer
+from .serializers import CommentSerializer #ADD THIS
 
 
 # Create your views here.
@@ -19,10 +19,21 @@ from .serializers import CommentSerializer
 class CommentListView(APIView):
     def post(self, request):
         print("CREATING COMMENT WITH USER ID", request.user.id)
-        # request.data['owner'] = request.user.def form_invalid(self, form):
-        #     response = super().form_invalid(form)
-        #     comment_to_add
+        #ADD THIS BELOW
+        request.data['owner'] = request.user.id 
+        comment_to_add = CommentSerializer(data=request.data)
+        try:
+            comment_to_add.is_valid()
+            comment_to_add.save()
+            return Response(comment_to_add.data, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print("ERROR")
+            # error msg - if the error message comes with an explainer message, then send that.
+            # if there's a nice readable error, then send that back; otherwise...
+            # otherwise, stringify the error
+            return Response(e.__dict__ if e.__dict__ else (str(e)), status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         
 class CommentDetailView(APIView):
     def get(self, request):
         print("Get A Comment")
+
