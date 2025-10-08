@@ -16,10 +16,16 @@ class Comment(models.Model):
 
     # When someone creates a comment, here we are relating data to it.
     # We can't do user on a model because it clashes with Django and special words.
+    # User is a Django reserved thing so can't use it.
+
+    # The owner of a comment will be models.ForeignKey
+    # Like the author of a book is the ForeignKey of "authors.Author"
     owner = models.ForeignKey(
+        # ! DON'T UNDERSTAND LINE 25 BELOW AND WHY we are using jwt_auth.User when books is authors.Author
+        # The reverse relation here.
+        # A comment will have an owner. But an owner will have many comments.
         "jwt_auth.User",
+        # So the related name will have comments - because owner will have comments.
         related_name="comments",
-        on_delete=models.CASCADE,
-        editable=False,
+        on_delete=models.CASCADE
     )
-    

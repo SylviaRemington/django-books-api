@@ -24,6 +24,6 @@ urlpatterns = [
     path('books/', include('books.urls')),
     path('authors/', include('authors.urls')),
     path('auth/', include('jwt_auth.urls')),
-    # path('comments/', include('comments.url')),
+    path('comments/', include('comments.urls')),
 ]
 
