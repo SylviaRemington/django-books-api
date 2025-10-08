@@ -14,11 +14,12 @@ class Comment(models.Model):
         on_delete=models.CASCADE #If the book is deleted, all the comments are deleted. But you can delete a comment separately.
     ),
 
-    
-
+    # When someone creates a comment, here we are relating data to it.
+    # We can't do user on a model because it clashes with Django and special words.
     owner = models.ForeignKey(
         "jwt_auth.User",
         related_name="comments",
         on_delete=models.CASCADE,
         editable=False,
     )
+    
