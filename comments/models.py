@@ -29,3 +29,6 @@ class Comment(models.Model):
         related_name="comments",
         on_delete=models.CASCADE
     )
+
+# So in POSTMAN when we create the comment, need to send text, book, and owner.
+# Don't need a created_at because it is an add now.
