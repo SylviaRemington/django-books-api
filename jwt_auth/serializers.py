@@ -36,7 +36,7 @@ class UserSerializer(serializers.ModelSerializer): # never converted to json and
         try:
             password_validation.validate_password(password=password)
         except ValidationError as err:
-            print('VALIDATION ERROR:': err.message)
+            print({'VALIDATION ERROR:': err.message})
             raise ValidationError({'password: ': err.message })
 
         # add it to the database & hash the password, reassigning value on dict - #3
