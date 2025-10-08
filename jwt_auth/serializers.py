@@ -56,4 +56,6 @@ class UserSerializer(serializers.ModelSerializer): # never converted to json and
         # Might be certain fields we don't want to return so we'll cut this down.
         fields = '__all__'
 
+# Next we are going to work on jwt auth views.py because working towards having a login endpoint and a register endpoint.
+
 
