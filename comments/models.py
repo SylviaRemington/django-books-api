@@ -32,3 +32,6 @@ class Comment(models.Model):
 
 # So in POSTMAN when we create the comment, need to send text, book, and owner.
 # Don't need a created_at because it is an add now.
+# REMEMBER, the BOOK and the OWNER are foreign keys.
+
+# ! STOPPING AT 1:24:16
