@@ -52,6 +52,8 @@ class UserSerializer(serializers.ModelSerializer): # never converted to json and
 
     class Meta:
         model = User
+        # In future, might want to not have this for all fields
+        # Might be certain fields we don't want to return so we'll cut this down.
         fields = '__all__'
 
 
