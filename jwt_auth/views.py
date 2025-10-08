@@ -25,6 +25,7 @@ class LoginView(APIView):
 
     def post(self, request):
         # get data from the request
+        # We have our email and our password. !!START FROM HERE WHEN I GET BACK.
         email = request.data.get('email')
         password = request.data.get('password')
         try:
