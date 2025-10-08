@@ -6,7 +6,8 @@ from rest_framework import status # status gives us a list of official/possible 
 # This is part of the rest framework - This is the import for the NotFound exception.
 from rest_framework.exceptions import NotFound
 
-# import the IsAuthenticaticatedOnReadOnly - can do things on GET requests
+# import the IsAuthenticaticatedOnReadOnly class - So that can do things on GET requests
+# This means the user needs to be signed in to do something and use IsAuthenticated / But if you want the ability for anyone to see books, can use this one
 from rest_framework.permissions import IsAuthenticatedOrReadOnly # IsAuthenticatedOrReadOnly specifies that a view is secure on all methods except get requests
 
 
