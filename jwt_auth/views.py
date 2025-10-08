@@ -41,7 +41,9 @@ class LoginView(APIView):
         # timedelta can be used to calculate the difference between dates - passing 7 days gives you 7 days represented as a date that we can add to datetime.now() to get the date 7 days from now
         # date time 7 days from when log in
         dt = datetime.now() + timedelta(days=7) # validity of token
+        # Create a token with jwt.encode:
         token = jwt.encode(
+            # login is user id & expiry is in 7 days time
             {'sub': user_to_login.id, 'exp': int(dt.strftime('%s'))}, # strftime -> string from time and turning it into a number
             settings.SECRET_KEY,
             algorithm='HS256'
