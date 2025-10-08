@@ -34,4 +34,4 @@ class Comment(models.Model):
 # Don't need a created_at because it is an add now.
 # REMEMBER, the BOOK and the OWNER are foreign keys.
 
-# ! STOPPING AT 1:24:16 / 1:23:26
+# ! STOPPING AT 1:24:16 / 1:23:26 - will resume 10/8
