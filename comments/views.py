@@ -15,6 +15,7 @@ from .serializers import CommentSerializer
 
 
 # Create your views here.
+# Need to fully create class CommentListView so that everything works out correctly.
 class CommentListView(APIView):
     def post(self, request);
         print("CREATING COMMENT WITH USER ID", request.user.id)
@@ -22,4 +23,6 @@ class CommentListView(APIView):
             response = super().form_invalid(form)
             comment_to_add
             # ! NOT COMPLETED - NEED TO FINISH
+        
+
         
