@@ -1,5 +1,6 @@
 ### Need to update SECTION ONE of this README to reflect books-api and not films-api
-**Currently working on both books-api and films-api to get more practice building Django backend api.**
+
+**Currently working on both books-api and films-api to get more practice building Django backend api. This is the first version of books-api before Tristan showed us a better, more logical order of creating apis.**
 
 <hr>
 
